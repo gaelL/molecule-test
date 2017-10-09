@@ -1,0 +1,71 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint:
+  name: yamllint
+platforms:
+  - name: instance
+    image: debian:jessie
+provisioner:
+  name: ansible
+  playbooks:
+    converge: ../../playbook.yml
+
+  env:
+   ANSIBLE_ROLES_PATH: ../../roles
+#     $project_root/../:$ephemeral_directory/roles/
+#   ANSIBLE_LIBRARY:
+#     $project_root/library/:$ephemeral_directory/library/
+#   ANSIBLE_FILTER_PLUGINS:
+#     $project_root/filter/plugins/:$ephemeral_directory/plugins/filters/
+  lint:
+    name: ansible-lint
+  # Config to pass to ansible.cfg
+  # molecule will merge default one, ansible.cfg file found and those one into the .molecule/ansible.cfg
+#  config_options:
+#    defaults:
+#        roles_path: ../../../roles
+scenario:
+  name: default
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
+
+
+#        provisioner:
+#          name: ansible
+#          inventory:
+#            group_vars:
+#              foo1:
+#                foo: bar
+#              foo2:
+#                foo: bar
+#                baz:
+#                  qux: zzyzx
+#            host_vars:
+#              foo1-01:
+#                foo: bar
+#
+#        provisioner:
+#          name: ansible
+#          inventory:
+#            links:
+#              group_vars: ../../../inventory/group_vars/
+#              host_vars: ../../../inventory/host_vars/
+#
+#
+#        ANSIBLE_ROLES_PATH:
+#          $project_root/../:$ephemeral_directory/roles/
+#        ANSIBLE_LIBRARY:
+#          $project_root/library/:$ephemeral_directory/library/
+#        ANSIBLE_FILTER_PLUGINS:
+#          $project_root/filter/plugins/:$ephemeral_directory/plugins/filters/
+#
+#        provisioner:
+#          name: ansible
+#          env:
+#            FOO: bar
+#

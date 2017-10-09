@@ -1,0 +1,32 @@
+---
+dependency:
+  name: galaxy
+  options:
+    vvv: True
+    # Default : molecule/<env>/requirements.yml
+    role-file: requirements.yml
+driver:
+  name: docker
+lint:
+  name: yamllint
+  # https://github.com/metacloud/molecule/blob/master/molecule/lint/yamllint.py
+  # https://yamllint.readthedocs.io/en/latest/configuration.html#custom-configuration-without-a-config-file
+  options:
+    config-data: "{extends: relaxed, rules: {line-length: {max: 200}}}"
+platforms:
+  - name: instance
+    image: debian:jessie
+provisioner:
+  name: ansible
+  #env:
+  #  MOLECULE_DEBUG: true
+  lint:
+    name: ansible-lint
+    # https://github.com/metacloud/molecule/blob/master/molecule/provisioner/lint/ansible_lint.py
+scenario:
+  name: default
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
+

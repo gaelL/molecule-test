@@ -1,0 +1,6 @@
+---
+
+- src: https://github.com/geerlingguy/ansible-role-apache
+  version: master
+  name: ansible.apache
+  scm: git

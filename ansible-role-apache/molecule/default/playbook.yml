@@ -1,0 +1,35 @@
+---
+- name: Converge
+  hosts: all
+  # Because we need to setup lsb release before
+  gather_facts: no
+  pre_tasks:
+    - name: install lsb_release
+      apt:
+        name: lsb-release
+        state: present
+
+    - name: install net-tools for testinfra
+      apt:
+        name: net-tools
+        state: present
+
+    - name: gather facts
+      setup:
+
+- name: Converge others
+  hosts: all:!foo
+  # Because we need to setup lsb release before
+  gather_facts: no
+  roles:
+    - role: ansible-role-apache
+
+- name: Converge foo
+  hosts: foo
+  # Because we need to setup lsb release before
+  gather_facts: no
+  vars:
+    apache_listen_port: 9999
+  roles:
+    - role: ansible-role-apache
+
