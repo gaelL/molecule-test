@@ -12,6 +12,9 @@ provisioner:
   name: ansible
   playbooks:
     converge: ../../playbook.yml
+# Give option to ansible-playbook command. make it run with --check
+#  options:
+#    check: true
 
   env:
    MOLECULE_DEBUG: "true"
