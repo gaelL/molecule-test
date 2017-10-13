@@ -8,6 +8,10 @@ lint:
 platforms:
   - name: instance
     image: debian:jessie
+    # Put this instance in ansible group foo
+    groups:
+     - foo
+
 provisioner:
   name: ansible
   playbooks:
