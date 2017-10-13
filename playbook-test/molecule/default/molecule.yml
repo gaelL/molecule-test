@@ -14,6 +14,7 @@ provisioner:
     converge: ../../playbook.yml
 
   env:
+   MOLECULE_DEBUG: "true"
    ANSIBLE_ROLES_PATH: ../../roles
 #     $project_root/../:$ephemeral_directory/roles/
 #   ANSIBLE_LIBRARY:
