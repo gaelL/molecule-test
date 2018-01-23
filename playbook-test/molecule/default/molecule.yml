@@ -37,6 +37,21 @@ provisioner:
 #        roles_path: ../../../roles
 scenario:
   name: default
+  # Override the sequance of a command
+  # https://molecule.readthedocs.io/en/latest/configuration.html#scenario
+  test_sequence:
+    - lint
+    - destroy
+    - dependency
+    - syntax
+    - create
+    - prepare
+    - converge
+    - idempotence
+    - side_effect
+    - verify
+    - destroy
+
 verifier:
   name: testinfra
   lint:
