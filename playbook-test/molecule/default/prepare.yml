@@ -11,4 +11,5 @@
       with_items:
         - net-tools
         - lsb-release 
-
+        - curl
+        - procps
