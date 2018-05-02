@@ -8,20 +8,31 @@ lint:
 platforms:
   - name: instance
     image: debian:jessie
+    # Adding some rm of systemctl because ansible try to use it by default in the container (for service module).
+    command: sh -c 'rm -f /bin/systemctl /sbin/initctl ; while sleep 3600; do :; done'
+
     # Put this instance in ansible group foo
     groups:
      - foo
+     - tag_env_test
 
 provisioner:
   name: ansible
   playbooks:
     converge: ../../playbook.yml
 # Give option to ansible-playbook command. make it run with --check
-#  options:
-#    check: true
+  options:
+    # skip-tags: deploy
+    # vvv: "True"
+    # check: true
+    extra-vars:
+      env=test
+      project=prometheus
+
 
   env:
    MOLECULE_DEBUG: "true"
+   #ANSIBLE_KEEP_REMOTE_FILES: "1"
    ANSIBLE_ROLES_PATH: ../../roles
 #     $project_root/../:$ephemeral_directory/roles/
 #   ANSIBLE_LIBRARY:
