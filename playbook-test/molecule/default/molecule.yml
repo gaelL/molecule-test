@@ -26,8 +26,8 @@ provisioner:
     # vvv: "True"
     # check: true
     extra-vars:
-      env=test
-      project=prometheus
+      env: test
+      project: prometheus
 
 
   env:
